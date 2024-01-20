@@ -15,9 +15,10 @@ interface TableProps {
   data: any[];
   columns: Column[];
   loading?: boolean;
+  onRowClick?: (id: string) => void;
 }
 
-const CustomTable: React.FC<TableProps> = ({ data, columns }) => {
+const CustomTable: React.FC<TableProps> = ({ data, columns, onRowClick }) => {
   if (!data.length) {
     return <div>Loading...</div>;
   }
@@ -67,7 +68,7 @@ const CustomTable: React.FC<TableProps> = ({ data, columns }) => {
         />
         <TableBody>
           {sortedData.map((row, index) => (
-            <TableRow key={`row-${index}`}>
+            <TableRow key={`row-${index}`} onClick={() => onRowClick(row.id)}>
               {columns.map((column) => (
                 <TableCell
                   key={`cell-${index}-${column.id}`}

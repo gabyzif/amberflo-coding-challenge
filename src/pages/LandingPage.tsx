@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../components/Table/Table';
+import { Button } from '@mui/material';
 import { Column } from '../types';
-import {
-  Button,
-  Modal,
-  Box,
-  Typography,
-  TextField,
-  FormControl,
-} from '@mui/material';
-
+import CreateMeter from '../components/CreateMeterModal';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
   const [meters, setMeters] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const history = useNavigate();
 
   const columnConfig: Column[] = [
     { id: 'id', displayName: 'ID', width: '20%', alignment: 'left' },
@@ -51,6 +47,10 @@ const LandingPage = () => {
     },
   ];
 
+  const handleRowClick = (meterId) => {
+    history(`/meters/${meterId}`);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -73,10 +73,59 @@ const LandingPage = () => {
     fetchData();
   }, []);
 
+  const handleCreateMeter = async (newMeterData) => {
+    // Set up the request options
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'API-KEY': process.env.REACT_APP_API_KEY,
+      },
+      body: JSON.stringify({
+        api_name: newMeterData.api_name,
+        display_name: newMeterData.display_name,
+        active: newMeterData.active,
+        used_for_billing: newMeterData.used_for_billing,
+        type: newMeterData.type,
+      }),
+    };
+
+    try {
+      const response = await fetch(
+        'https://take-home-exercise-api.herokuapp.com/meters',
+        requestOptions
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const createdMeter = await response.json();
+      setMeters((prevMeters) => [...prevMeters, createdMeter]);
+      setCreateModalOpen(false);
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  };
+
   return (
     <div>
-      <h1>Meters Dashboard</h1>
-      <Table columns={columnConfig} data={meters} loading={loading} />
+      <div>
+        <h1>Meters Dashboard</h1>
+        <Button onClick={() => setCreateModalOpen(true)}>
+          Create New Meter
+        </Button>
+      </div>
+
+      <Table
+        onRowClick={handleRowClick}
+        columns={columnConfig}
+        data={meters}
+        loading={loading}
+      />
+      <CreateMeter
+        isOpen={isCreateModalOpen}
+        onClose={() => setCreateModalOpen(false)}
+        onCreate={handleCreateMeter}
+      />
     </div>
   );
 };
