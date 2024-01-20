@@ -53,7 +53,6 @@ const CreateMeter = ({ isOpen, onClose, onCreate }) => {
   };
 
   const handleSubmit = (e) => {
-    console.log('formData', formData);
     e.preventDefault();
     if (validateForm()) {
       onCreate(formData);

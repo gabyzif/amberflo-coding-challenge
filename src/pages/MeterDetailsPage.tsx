@@ -10,7 +10,6 @@ import {
   Grid,
   Alert,
   Paper,
-  useTheme,
 } from '@mui/material';
 
 const MeterDetailsPage = () => {
@@ -26,9 +25,6 @@ const MeterDetailsPage = () => {
     used_for_billing: false,
     type: '',
   });
-
-  const theme = useTheme();
-  const isDarkMode = theme.palette.mode === 'dark';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +54,6 @@ const MeterDetailsPage = () => {
           setEditable(createdDate >= cutoffDate && !selectedMeter.read_only);
         }
       } catch (error) {
-        console.error('Error fetching meters:', error);
         setError('Failed to fetch meter details.');
       }
     };
@@ -93,7 +88,6 @@ const MeterDetailsPage = () => {
       }
       history('/');
     } catch (error) {
-      console.error('Error updating meter details:', error);
       setError('Failed to update meter details.');
     }
   };
@@ -112,9 +106,8 @@ const MeterDetailsPage = () => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      history('/'); // Navigate back to the landing page or a confirmation page
+      history('/');
     } catch (error) {
-      console.error('Error deleting meter:', error);
       setError('Failed to delete meter.');
     }
   };

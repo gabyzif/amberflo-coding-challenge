@@ -53,7 +53,6 @@ const LandingPage = () => {
   };
 
   const handleCreateMeter = async (newMeterData) => {
-    console.log('newMeterData', newMeterData);
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -80,7 +79,6 @@ const LandingPage = () => {
       await fetchMeters();
       setCreateModalOpen(false);
     } catch (error) {
-      console.error('Error creating meter:', error);
       setError('Failed to create a new meter. Please check your data.');
     }
   };
@@ -99,7 +97,6 @@ const LandingPage = () => {
       setMeters(data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };

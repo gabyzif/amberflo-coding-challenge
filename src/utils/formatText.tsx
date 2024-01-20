@@ -17,7 +17,6 @@ export const formatTime = (dateString) => {
 
     return date.toLocaleString();
   } catch (error) {
-    console.error('Error formatting date:', error);
     return 'Error in Date';
   }
 };
