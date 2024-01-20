@@ -1,72 +1,74 @@
-# Getting Started with Create React App
+# Front-End Engineer - Take Home Exercise
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+=======================================
 
-## Available Scripts
+## Objective
 
-In the project directory, you can run:
+---
 
-### `npm start`
+This web application is built as part of a take-home exercise. It interacts with a set of APIs to manage "meters" within the Amberflo system. The application allows users to view, create, and edit meter entries.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+- HTML, CSS, JavaScript, React
+- Optionally uses TypeScript
+- Compatible with Desktop Chrome, Firefox, and Safari
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation and Running the App
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To run this application:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  Clone the repository:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    bashCopy code
 
-### `npm run eject`
+    `git clone git@github.com:gabyzif/amberflo-coding-challenge.git`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2.  Navigate to the project directory:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    bashCopy code
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    `cd amberflo-challenge`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3.  Install dependencies:
 
-## Learn More
+    bashCopy code
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    `npm install`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4.  Start the application:
 
-### Code Splitting
+    bashCopy code
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    `npm start`
 
-### Analyzing the Bundle Size
+    This will run the app in development mode. Open [http://localhost:3000](http://localhost:3000/) to view it in your browser.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Features
 
-### Making a Progressive Web App
+- Landing Page: Displays a table of all available meters with attributes such as `display_name`, `api_name`, `active`, `used_for_billing`, and `type`. The table allows sorting by any column in either ascending or descending order.
+- Create a New Meter: Users can create new meters, which are then displayed on the landing page table.
+- Meter Details Page: Users can view details of each meter by clicking on a row in the landing page table. They can edit these details with the exception of the initial meters, which are read-only. Edit functionality is disabled based on the date of creation of the entries to maintain integrity.
+- Error Handling: The application includes error handling for various operations to enhance user experience.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## API Endpoints
 
-### Advanced Configuration
+The application interacts with the following API endpoints:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- GET `https://take-home-exercise-api.herokuapp.com/meters`: Fetches an array of meters.
+- POST `https://take-home-exercise-api.herokuapp.com/meters`: Creates a meter.
+- PUT `https://take-home-exercise-api.herokuapp.com/meters/:id`: Updates a meter.
+- DELETE `https://take-home-exercise-api.herokuapp.com/meters/:id`: Deletes a meter.
 
-### Deployment
+Note: Use a "Content-Type" header value of "application/json" when making these requests.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Additional Notes
 
-### `npm run build` fails to minify
+- This project is completed within the constraints of the provided requirements and time frame.
+- The application's design and implementation are kept simple and user-friendly, focusing on functionality.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-# amberflo-coding-challenge
+---
