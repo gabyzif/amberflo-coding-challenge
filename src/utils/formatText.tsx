@@ -5,16 +5,21 @@ export const formatText = (text) => {
 };
 
 export const formatTime = (dateString) => {
-  const date = new Date(dateString);
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  };
-  return new Intl.DateTimeFormat('en-US', options).format(date);
+  if (!dateString) {
+    return 'No Date Provided';
+  }
+
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return 'Invalid Date';
+    }
+
+    return date.toLocaleString();
+  } catch (error) {
+    console.error('Error formatting date:', error);
+    return 'Error in Date';
+  }
 };
 
 export default formatText;

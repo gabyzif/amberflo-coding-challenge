@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../components/Table/Table';
-import { Button } from '@mui/material';
+import { Button, Alert } from '@mui/material';
 import { Column } from '../types';
 import CreateMeter from '../components/CreateMeterModal';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ const LandingPage = () => {
   const [meters, setMeters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const [error, setError] = useState('');
   const history = useNavigate();
 
   const columnConfig: Column[] = [
@@ -102,7 +103,8 @@ const LandingPage = () => {
       setMeters((prevMeters) => [...prevMeters, createdMeter]);
       setCreateModalOpen(false);
     } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
+      console.error('Error creating meter:', error);
+      setError('Failed to create a new meter. Please check your data.');
     }
   };
 
@@ -114,7 +116,11 @@ const LandingPage = () => {
           Create New Meter
         </Button>
       </div>
-
+      {error && (
+        <Alert severity="error" style={{ marginBottom: 10 }}>
+          {error}
+        </Alert>
+      )}
       <Table
         onRowClick={handleRowClick}
         columns={columnConfig}

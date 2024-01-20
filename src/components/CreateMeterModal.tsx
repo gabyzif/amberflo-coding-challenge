@@ -11,7 +11,13 @@ import {
   Select,
   MenuItem,
   Switch,
+  FormHelperText,
 } from '@mui/material';
+interface Errors {
+  api_name?: string;
+  display_name?: string;
+  type?: string;
+}
 
 const CreateMeter = ({ isOpen, onClose, onCreate }) => {
   const [formData, setFormData] = useState({
@@ -21,19 +27,37 @@ const CreateMeter = ({ isOpen, onClose, onCreate }) => {
     used_for_billing: false,
     type: '',
   });
+  const [errors, setErrors] = useState<Errors>({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, checked, type } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : value,
     });
+    // Clear errors for this field
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors: Errors = {};
+    if (!formData.api_name) newErrors.api_name = 'API Name is required';
+    if (!formData.display_name)
+      newErrors.display_name = 'Display Name is required';
+    if (!formData.type) newErrors.type = 'Type is required';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onCreate(formData);
-    onClose(); // Close the modal after creation
+    if (validateForm()) {
+      onCreate(formData);
+      onClose(); // Close the modal after creation
+    }
   };
 
   return (
@@ -48,6 +72,8 @@ const CreateMeter = ({ isOpen, onClose, onCreate }) => {
           value={formData.api_name}
           onChange={handleChange}
           fullWidth
+          error={!!errors.api_name}
+          helperText={errors.api_name}
         />
         <TextField
           name="display_name"
@@ -55,6 +81,8 @@ const CreateMeter = ({ isOpen, onClose, onCreate }) => {
           value={formData.display_name}
           onChange={handleChange}
           fullWidth
+          error={!!errors.display_name}
+          helperText={errors.display_name}
         />
         <FormControlLabel
           control={
@@ -76,7 +104,7 @@ const CreateMeter = ({ isOpen, onClose, onCreate }) => {
           }
           label="Used for Billing"
         />
-        <FormControl fullWidth margin="normal">
+        <FormControl fullWidth margin="normal" error={!!errors.type}>
           <InputLabel>Type</InputLabel>
           <Select
             name="type"
@@ -88,6 +116,7 @@ const CreateMeter = ({ isOpen, onClose, onCreate }) => {
             <MenuItem value="max">Max</MenuItem>
             <MenuItem value="unique_count">Unique Count</MenuItem>
           </Select>
+          {errors.type && <FormHelperText>{errors.type}</FormHelperText>}
         </FormControl>
         <Button type="submit" variant="contained" sx={{ mt: 2 }}>
           Create
