@@ -9,6 +9,8 @@ import {
   Container,
   Grid,
   Alert,
+  Paper,
+  useTheme,
 } from '@mui/material';
 
 const MeterDetailsPage = () => {
@@ -24,6 +26,9 @@ const MeterDetailsPage = () => {
     used_for_billing: false,
     type: '',
   });
+
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -116,7 +121,7 @@ const MeterDetailsPage = () => {
   if (!meter) return <Typography>Loading...</Typography>;
 
   return (
-    <Container>
+    <Container component={Paper} style={{ margin: 10, padding: 20 }}>
       <Typography variant="h4" gutterBottom>
         Meter Details
       </Typography>

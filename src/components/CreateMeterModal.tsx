@@ -12,6 +12,7 @@ import {
   MenuItem,
   Switch,
   FormHelperText,
+  Paper,
 } from '@mui/material';
 interface Errors {
   api_name?: string;
@@ -35,7 +36,6 @@ const CreateMeter = ({ isOpen, onClose, onCreate }) => {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
-    // Clear errors for this field
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
     }
@@ -56,14 +56,14 @@ const CreateMeter = ({ isOpen, onClose, onCreate }) => {
     e.preventDefault();
     if (validateForm()) {
       onCreate(formData);
-      onClose(); // Close the modal after creation
+      onClose();
     }
   };
 
   return (
     <Modal open={isOpen} onClose={onClose}>
-      <Box component="form" onSubmit={handleSubmit} sx={modalStyle}>
-        <Typography variant="h6" sx={{ mb: 2 }}>
+      <Box component={Paper} onSubmit={handleSubmit} sx={modalStyle}>
+        <Typography variant="h4" sx={{ mb: 2 }}>
           Create New Meter
         </Typography>
         <TextField

@@ -52,30 +52,7 @@ const LandingPage = () => {
     history(`/meters/${meterId}`);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          'https://take-home-exercise-api.herokuapp.com/meters',
-          {
-            headers: {
-              'API-KEY': process.env.REACT_APP_API_KEY,
-            },
-          }
-        );
-        const data = await response.json();
-        setMeters(data);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const handleCreateMeter = async (newMeterData) => {
-    // Set up the request options
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -99,14 +76,36 @@ const LandingPage = () => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const createdMeter = await response.json();
-      setMeters((prevMeters) => [...prevMeters, createdMeter]);
+      await fetchMeters();
       setCreateModalOpen(false);
     } catch (error) {
       console.error('Error creating meter:', error);
       setError('Failed to create a new meter. Please check your data.');
     }
   };
+
+  const fetchMeters = async () => {
+    try {
+      const response = await fetch(
+        'https://take-home-exercise-api.herokuapp.com/meters',
+        {
+          headers: {
+            'API-KEY': process.env.REACT_APP_API_KEY,
+          },
+        }
+      );
+      const data = await response.json();
+      setMeters(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMeters();
+  }, []);
 
   return (
     <div>
