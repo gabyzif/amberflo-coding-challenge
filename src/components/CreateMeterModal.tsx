@@ -53,6 +53,7 @@ const CreateMeter = ({ isOpen, onClose, onCreate }) => {
   };
 
   const handleSubmit = (e) => {
+    console.log('formData', formData);
     e.preventDefault();
     if (validateForm()) {
       onCreate(formData);
@@ -62,65 +63,67 @@ const CreateMeter = ({ isOpen, onClose, onCreate }) => {
 
   return (
     <Modal open={isOpen} onClose={onClose}>
-      <Box component={Paper} onSubmit={handleSubmit} sx={modalStyle}>
-        <Typography variant="h4" sx={{ mb: 2 }}>
-          Create New Meter
-        </Typography>
-        <TextField
-          name="api_name"
-          label="API Name"
-          value={formData.api_name}
-          onChange={handleChange}
-          fullWidth
-          error={!!errors.api_name}
-          helperText={errors.api_name}
-        />
-        <TextField
-          name="display_name"
-          label="Display Name"
-          value={formData.display_name}
-          onChange={handleChange}
-          fullWidth
-          error={!!errors.display_name}
-          helperText={errors.display_name}
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={formData.active}
-              onChange={handleChange}
-              name="active"
-            />
-          }
-          label="Active"
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={formData.used_for_billing}
-              onChange={handleChange}
-              name="used_for_billing"
-            />
-          }
-          label="Used for Billing"
-        />
-        <FormControl fullWidth margin="normal" error={!!errors.type}>
-          <InputLabel>Type</InputLabel>
-          <Select
-            name="type"
-            value={formData.type}
-            label="Type"
+      <Box component={Paper}>
+        <Box component="form" onSubmit={handleSubmit} sx={modalStyle}>
+          <Typography variant="h4" sx={{ mb: 2 }}>
+            Create New Meter
+          </Typography>
+          <TextField
+            name="api_name"
+            label="API Name"
+            value={formData.api_name}
             onChange={handleChange}
-          >
-            <MenuItem value="sum">Sum</MenuItem>
-            <MenuItem value="max">Max</MenuItem>
-            <MenuItem value="unique_count">Unique Count</MenuItem>
-          </Select>
-          {errors.type && <FormHelperText>{errors.type}</FormHelperText>}
-        </FormControl>
-        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-          Create
-        </Button>
+            fullWidth
+            error={!!errors.api_name}
+            helperText={errors.api_name}
+          />
+          <TextField
+            name="display_name"
+            label="Display Name"
+            value={formData.display_name}
+            onChange={handleChange}
+            fullWidth
+            error={!!errors.display_name}
+            helperText={errors.display_name}
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={formData.active}
+                onChange={handleChange}
+                name="active"
+              />
+            }
+            label="Active"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={formData.used_for_billing}
+                onChange={handleChange}
+                name="used_for_billing"
+              />
+            }
+            label="Used for Billing"
+          />
+          <FormControl fullWidth margin="normal" error={!!errors.type}>
+            <InputLabel>Type</InputLabel>
+            <Select
+              name="type"
+              value={formData.type}
+              label="Type"
+              onChange={handleChange}
+            >
+              <MenuItem value="sum">Sum</MenuItem>
+              <MenuItem value="max">Max</MenuItem>
+              <MenuItem value="unique_count">Unique Count</MenuItem>
+            </Select>
+            {errors.type && <FormHelperText>{errors.type}</FormHelperText>}
+          </FormControl>
+          <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+            Create
+          </Button>
+        </Box>
       </Box>
     </Modal>
   );

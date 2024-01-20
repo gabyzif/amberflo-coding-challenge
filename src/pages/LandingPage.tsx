@@ -53,6 +53,7 @@ const LandingPage = () => {
   };
 
   const handleCreateMeter = async (newMeterData) => {
+    console.log('newMeterData', newMeterData);
     const requestOptions = {
       method: 'POST',
       headers: {

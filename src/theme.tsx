@@ -6,6 +6,12 @@ export const lightTheme = createTheme({
     primary: {
       main: '#5C6BC0',
     },
+    secondary: {
+      main: '#FF4081',
+    },
+    error: {
+      main: '#f44336',
+    },
     background: {
       default: '#ffffff',
       paper: '#f5f5f5',
@@ -19,7 +25,7 @@ export const lightTheme = createTheme({
     fontFamily: 'Inter, Arial, sans-serif',
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 20,
   },
 });
 
@@ -28,6 +34,12 @@ export const darkTheme = createTheme({
     mode: 'dark',
     primary: {
       main: '#7986CB',
+    },
+    secondary: {
+      main: '#FF4081',
+    },
+    error: {
+      main: '#f44336',
     },
     background: {
       default: '#121212',
@@ -42,6 +54,6 @@ export const darkTheme = createTheme({
     fontFamily: 'Inter, Arial, sans-serif',
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 20,
   },
 });
