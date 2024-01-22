@@ -13,7 +13,7 @@ This web application is built as part of a take-home exercise. It interacts with
 ---
 
 - HTML, CSS, JavaScript, React
-- Optionally uses TypeScript
+- TypeScript
 - Compatible with Desktop Chrome, Firefox, and Safari
 
 ## Installation and Running the App
