@@ -6,12 +6,15 @@ import {
   TableContainer,
   TableRow,
   Paper,
+  Skeleton,
+  Box,
 } from '@mui/material';
 import { formatText, formatTime } from '../../utils/formatText';
 import { Column } from '../../types';
 import CustomTableHead from './TableHead';
 
 interface TableProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any[];
   columns: Column[];
   loading?: boolean;
@@ -20,7 +23,15 @@ interface TableProps {
 
 const CustomTable: React.FC<TableProps> = ({ data, columns, onRowClick }) => {
   if (!data.length) {
-    return <div>Loading...</div>;
+    return (
+      <Box>
+        <Skeleton animation="wave" height={40} />
+        <Skeleton animation="wave" height={40} />
+        <Skeleton animation="wave" height={40} />
+        <Skeleton animation="wave" height={40} />
+        <Skeleton animation="wave" height={40} />
+      </Box>
+    );
   }
 
   const [sortColumn, setSortColumn] = useState<string | null>(null);
@@ -68,7 +79,12 @@ const CustomTable: React.FC<TableProps> = ({ data, columns, onRowClick }) => {
         />
         <TableBody>
           {sortedData.map((row, index) => (
-            <TableRow key={`row-${index}`} onClick={() => onRowClick(row.id)}>
+            <TableRow
+              key={`row-${index}`}
+              onClick={() => onRowClick(row.id)}
+              hover={true}
+              style={{ cursor: 'pointer' }}
+            >
               {columns.map((column) => (
                 <TableCell
                   key={`cell-${index}-${column.id}`}

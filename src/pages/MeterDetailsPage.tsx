@@ -10,6 +10,8 @@ import {
   Grid,
   Alert,
   Paper,
+  Skeleton,
+  Box,
 } from '@mui/material';
 
 const MeterDetailsPage = () => {
@@ -111,7 +113,16 @@ const MeterDetailsPage = () => {
       setError('Failed to delete meter.');
     }
   };
-  if (!meter) return <Typography>Loading...</Typography>;
+  if (!meter) {
+    return (
+      <Box>
+        <Skeleton animation="wave" height={40} />
+        <Skeleton animation="wave" height={40} />
+        <Skeleton animation="wave" height={40} />
+        <Skeleton animation="wave" height={40} />
+      </Box>
+    );
+  }
 
   return (
     <Container component={Paper} style={{ margin: 10, padding: 20 }}>
